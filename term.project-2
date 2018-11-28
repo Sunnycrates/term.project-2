@@ -1,0 +1,62 @@
+import requests
+url = 'https://music.bugs.co.kr/chart?wl_ref=M_left_02_01'
+r = requests.get(url)
+r.encoding = 'utf8'
+data = str(r.text)
+for i in range(100):
+    s1 = '<p class="title"'
+    s2 = 'title="'
+    data = data[data.find(s1):]
+    data = data[data.find(s2)+len(s2):]
+    h = data[:data.find('"')]
+    s1 = '<p class="artist">'
+    s2 = 'title="'
+    data = data[data.find(s1):]
+    data = data[data.find(s2)+len(s2):]
+    p = data[:data.find('"')]
+    print(h,p)
+
+
+import requests
+url = 'https://music.naver.com/listen/top100.nhn?domain=TOTAL&duration=1h'
+r = requests.get(url)
+r.encoding = 'utf8'
+data = str(r.text)
+s1 = '<span class="ellipsis">'
+s2 = '" title="'
+which = 0
+for i in range(50):
+    s = data[data.find(s1,which)+len(s1):data.find(s1,which)+len(s1)+60]
+    for j in s:
+        if j=="<":
+            break
+        print(j,end="")
+    print()
+    which = data.find(s1,which)+len(s1)+20
+    t = data[data.find(s2,which)+len(s2):data.find(s2,which)+len(s2)+60]
+    for k in t:
+        if k=='"':
+            break
+        print(k,end="")
+    print()
+
+url = "https://music.naver.com/listen/top100.nhn?domain=TOTAL&page=2"
+r = requests.get(url)
+r.encoding = 'utf8'
+data = str(r.text)
+which = 0
+for i in range(50):
+    s = data[data.find(s1,which)+len(s1):data.find(s1,which)+len(s1)+60]
+    for j in s:
+        if j=="<":
+            break
+        print(j,end="")
+    print()
+    which = data.find(s1,which)+len(s1)+20
+    t = data[data.find(s2,which)+len(s2):data.find(s2,which)+len(s2)+60]
+    for k in t:
+        if k=='"':
+            break
+        print(k,end="")
+    print()
+
